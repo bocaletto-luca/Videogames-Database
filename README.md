@@ -1,4 +1,4 @@
-# Project: videogamesDB
+# VideogamesDB
 ----
 #### Author: Bocaletto Luca
 #### Description: Videogames Database  sql
