@@ -1,6 +1,6 @@
 # Project: videogamesDB
 ----
-#### Author: Bocaletto Luca (Elektronoide)
+#### Author: Bocaletto Luca
 #### Description: Videogames Database  sql
 ##### Files Type: SQL
 ##### Total Tables: 32
