@@ -8,6 +8,9 @@
 ##### Range Year: 1980-2017
 
 ----
+Videogames-Database organizes video game data, covering titles, developers, genres, release dates, and platforms. This repository provides a reliable resource for gamers, researchers, and developers seeking structured game-related information. Whether you're building tools or analyzing trends, it's a great foundation.
+
+----
 ##### Tables Name: 
 2600, 3DO, 3DS, DC, DS, GB, GBA, GC, GEN, GG, N64, NES, NG, PC, PCFX, PS, PS2, PS3, PS4, PSP, PSV, SAT, SCD, SNES, TG16, Wii, WiiU, WS, X360, XB, XOne, all_platform.
 ##### Tables structure: 
