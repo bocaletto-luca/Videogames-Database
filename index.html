@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Videogames-Database | SQL Game Dataset by Bocaletto Luca</title>
+  <meta name="description" content="Videogames-Database: SQL archive of 11,364 video game records across 32 platforms (1980–2017). Ideal for analytics, dashboards, and app development.">
+  <meta name="keywords" content="video game database, SQL, SQLite, analytics, gaming, dataset">
+  <meta name="author" content="Bocaletto Luca">
+  <style>
+    body {font-family: Arial, sans-serif; margin:0; padding:0; line-height:1.6; color:#333;}
+    header, footer {background:#f4f4f4; text-align:center; padding:1rem;}
+    main {max-width:900px; margin:2rem auto; padding:0 1rem;}
+    h1,h2,h3 {color:#222;}
+    table {width:100%; border-collapse:collapse; margin:1rem 0;}
+    th,td {border:1px solid #ccc; padding:0.5rem; text-align:left;}
+    pre, code {background:#f0f0f0; padding:0.5rem; overflow-x:auto;}
+    ul,ol {margin:0 0 1rem 1.5rem;}
+    a {color:#0066cc; text-decoration:none;}
+    a:hover {text-decoration:underline;}
+    footer p {margin:0.5rem 0;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Videogames-Database</h1>
+    <p>Author: Bocaletto Luca</p>
+  </header>
+  <main>
+    <section id="overview">
+      <p>Videogames-Database is a unified, SQL-based archive capturing over 11,364 video game records across 32 platforms from 1980 to 2017. It brings together titles, genres, publishers, release years and platforms into a consistent schema—ideal for analytics, dashboards, academic research, and app development.</p>
+    </section>
+
+    <section id="toc">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#schema">Schema</a></li>
+        <li><a href="#platforms-genres">Platforms & Genres</a></li>
+        <li><a href="#structure">Repository Structure</a></li>
+        <li><a href="#quickstart">Quick Start</a></li>
+        <li><a href="#queries">Example Queries</a></li>
+        <li><a href="#contributing">Contributing</a></li>
+        <li><a href="#license">License</a></li>
+      </ul>
+    </section>
+
+    <section id="features">
+      <h2>Features</h2>
+      <ul>
+        <li>32 platform-specific tables plus a consolidated <code>all_platform</code> view</li>
+        <li>Uniform table schema for seamless cross-platform queries</li>
+        <li>Coverage of 11,364 entries spanning 1980–2017</li>
+        <li>Ready-to-use with SQLite or any SQL-compliant RDBMS</li>
+        <li>Detailed breakdown by genre, publisher, and release year</li>
+      </ul>
+    </section>
+
+    <section id="schema">
+      <h2>Schema</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>INTEGER</td><td>Primary key</td></tr>
+          <tr><td>game_name</td><td>TEXT</td><td>Title of the video game</td></tr>
+          <tr><td>genre_name</td><td>TEXT</td><td>Genre (e.g., Action, RPG, Puzzle)</td></tr>
+          <tr><td>platform_name</td><td>TEXT</td><td>Release platform (e.g., SNES, X360)</td></tr>
+          <tr><td>publisher_name</td><td>TEXT</td><td>Publishing company</td></tr>
+          <tr><td>release_year</td><td>INTEGER</td><td>Year of release</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="platforms-genres">
+      <h2>Platforms & Genres</h2>
+      <h3>Platforms (32 total)</h3>
+      <p>2600, 3DO, 3DS, DC, DS, GB, GBA, GC, GEN, GG, N64, NES, NG, PC, PCFX, PS, PS2, PS3, PS4, PSP, PSV, SAT, SCD, SNES, TG16, Wii, WiiU, WS, X360, XB, XOne, all_platform</p>
+      <h3>Genres (12 total)</h3>
+      <p>Action, Adventure, Fighting, Misc, Platform, Puzzle, Racing, Role-Playing, Shooter, Simulation, Sports, Strategy</p>
+    </section>
+
+    <section id="structure">
+      <h2>Repository Structure</h2>
+      <pre><code>.github/
+  gitattributes
+
+LICENSE
+README.md
+database.sql
+
+2600.sql      3do.sql       3ds.sql      dc.sql
+ds.sql        gb.sql        gba.sql      gc.sql
+gen.sql       gg.sql        n64.sql      nes.sql
+ng.sql        pc.sql        pcfx.sql     ps.sql
+ps2.sql       ps3.sql       ps4.sql      psp.sql
+psv.sql       sat.sql       scd.sql      snes.sql
+tg16.sql      wii.sql       wiiu.sql     ws.sql
+x360.sql      xb.sql        xone.sql
+all_platform.sql</code></pre>
+      <p><strong>database.sql</strong>: Full import script<br>
+      <strong>*.sql files</strong>: Individual table dumps per platform<br>
+      <strong>all_platform.sql</strong>: Aggregated view of all entries<br>
+      <strong>.gitattributes</strong>: Ensures consistent line endings</p>
+    </section>
+
+    <section id="quickstart">
+      <h2>Quick Start</h2>
+      <pre><code>git clone https://github.com/bocaletto-luca/Videogames-Database.git
+cd Videogames-Database
+sqlite3 videogames.db &lt; database.sql</code></pre>
+      <p>Connect with any SQL client or integrate into your application.</p>
+    </section>
+
+    <section id="queries">
+      <h2>Example Queries</h2>
+      <pre><code>-- 1. Count games by genre in the 1990s
+SELECT genre_name,
+       COUNT(*) AS total
+  FROM all_platform
+ WHERE release_year BETWEEN 1990 AND 1999
+ GROUP BY genre_name
+ ORDER BY total DESC;
+
+-- 2. Top 5 publishers on PS2
+SELECT publisher_name,
+       COUNT(*) AS releases
+  FROM PS2
+ GROUP BY publisher_name
+ ORDER BY releases DESC
+ LIMIT 5;
+
+-- 3. Platform debut years
+SELECT platform_name,
+       MIN(release_year) AS first_release
+  FROM all_platform
+ GROUP BY platform_name
+ ORDER BY first_release;</code></pre>
+    </section>
+
+    <section id="contributing">
+      <h2>Contributing</h2>
+      <p>Corrections, data additions and improvements are welcome. Please open an issue or submit a pull request against this repository. Ensure that new records follow the established schema.</p>
+    </section>
+
+    <section id="license">
+      <h2>License</h2>
+      <p>This project is licensed under the <a href="https://github.com/bocaletto-luca/Videogames-Database/blob/main/LICENSE" target="_blank">MIT License</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Bocaletto Luca</p>
+    <p><a href="https://github.com/bocaletto-luca" target="_blank">GitHub Profile</a> | <a href="https://github.com/bocaletto-luca/Videogames-Database" target="_blank">Repository</a></p>
+  </footer>
+</body>
+</html>
