@@ -137,4 +137,4 @@ Corrections, data additions and improvements are welcome. Please open an issue o
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/bocaletto-luca/Videogames-Database/blob/main/LICENSE).
+This project is licensed under the [GPL License](https://github.com/bocaletto-luca/Videogames-Database/blob/main/LICENSE).
